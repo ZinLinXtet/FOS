@@ -40,36 +40,30 @@ if (isset($_POST['filter'])) {
     unset($_SESSION['search_filter']);
 
     $item = array_values(array_filter($item, function ($value) {;
-       
-        if((!empty($_POST['start_date']) && !empty($_POST['end_date'])) ){
-            $search_date =  date('Y-m-d', strtotime($value['created_date']));
+        $search_date =  date('Y-m-d', strtotime($value['created_date']));
             $start_date = date('Y-m-d', strtotime($_POST['start_date']));
             $end_date = date('Y-m-d', strtotime($_POST['end_date']));
-
-            if($search_date >= $start_date && $search_date <= $end_date){
+            $search_cate =  $value['category_id'];  
+            if((!empty($_POST['start_date']) && !empty($_POST['end_date']) && empty($_POST['cat_filter']))){
+                if($search_date >= $start_date && $search_date <= $end_date){
                return $value;
             }
         }
 
 
-        if(( !empty($_POST['cat_filter']))){
-            $search_cate =  $value['category_id'];   
+        if(( !empty($_POST['cat_filter'])) && empty($_POST['start_date']) && empty($_POST['end_date'])){ 
             if($search_cate == $_POST['cat_filter']){
                 return $value;
             }
         }    
 
-        if(( !empty($_POST['cat_filter'])) && (!empty($_POST['start_date']) && !empty($_POST['end_date']))){
-            $search_cate =  $value['category_id'];   
-            $search_date =  date('Y-m-d', strtotime($value['created_date']));
-            $start_date = date('Y-m-d', strtotime($_POST['start_date']));
-            $end_date = date('Y-m-d', strtotime($_POST['end_date']));
-
+        if(( !empty($_POST['cat_filter'])) && !empty($_POST['start_date']) && !empty($_POST['end_date'])){
             if($search_date >= $start_date && $search_date <= $end_date && $search_cate == $_POST['cat_filter']){
                 return $value;
             }
         }    
     }));
+
     
 }
 
@@ -118,7 +112,7 @@ header('location:'.$_SERVER['PHP_SELF']);
             <div class="col-md-4">
                 <select name="cat_filter" class="form-select">
                     <?php
-                    echo "<option hidden>Categories Type</option>";
+                    echo "<option hidden selected value='0'>Categories Type</option>";
                     for ($i = 0; $i < count($parents); $i++) {
                         if($_POST['cat_filter']==$parents[$i]['id'])
                         echo "<option value='" . $parents[$i]['id'] . "' selected>" . $parents[$i]['name'] . "</option>";
@@ -135,11 +129,11 @@ header('location:'.$_SERVER['PHP_SELF']);
             <div class="col-md-4">
                 <div class="row">
                     <div class="col-md-6">
-                        <input type="date" name="start_date" id="start_date" class="form-control" placeholder="Start Date" >
+                        <input type="date" name="start_date" id="start_date" class="form-control" placeholder="Start Date" value="<?php if(isset($_POST['filter'])){echo $_POST['start_date'];} ?>">
 
                     </div>
                     <div class="col-md-6">
-                        <input type="date" name="end_date" id="end_date" class="form-control" placeholder="End Date">
+                        <input type="date" name="end_date" id="end_date" class="form-control" placeholder="End Date" value="<?php if(isset($_POST['filter'])){echo $_POST['end_date'];} ?>">
 
                     </div>
                 </div>
