@@ -39,5 +39,6 @@ if(isset($_SESSION['reportExcel'])){
             header('Content-Disposition:attachment;filename=report.xls');
             echo $output    ;
             unset($_SESSION['reportExcel']);
+            unset($_SESSION['search_filter']);
             exit();
 ?>
