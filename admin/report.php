@@ -33,41 +33,37 @@ if (isset($_GET['page']) && !empty($_GET['page'])) {
 } else {
     $page = 1;
 }
-
+if(!isset($_SESSION['reportExcel'])){
+    $_SESSION['reportExcel'] =[];
+}
 if (isset($_POST['filter'])) {
     unset($_SESSION['search_filter']);
 
     $item = array_values(array_filter($item, function ($value) {;
-       
-        if((!empty($_POST['start_date']) && !empty($_POST['end_date'])) ){
-            $search_date =  date('Y-m-d', strtotime($value['created_date']));
+        $search_date =  date('Y-m-d', strtotime($value['created_date']));
             $start_date = date('Y-m-d', strtotime($_POST['start_date']));
             $end_date = date('Y-m-d', strtotime($_POST['end_date']));
-
-            if($search_date >= $start_date && $search_date <= $end_date){
+            $search_cate =  $value['category_id'];  
+            if((!empty($_POST['start_date']) && !empty($_POST['end_date']) && empty($_POST['cat_filter']))){
+                if($search_date >= $start_date && $search_date <= $end_date){
                return $value;
             }
         }
 
 
-        if(( !empty($_POST['cat_filter']))){
-            $search_cate =  $value['category_id'];   
+        if(( !empty($_POST['cat_filter'])) && empty($_POST['start_date']) && empty($_POST['end_date'])){ 
             if($search_cate == $_POST['cat_filter']){
                 return $value;
             }
         }    
 
-        if(( !empty($_POST['cat_filter'])) && (!empty($_POST['start_date']) && !empty($_POST['end_date']))){
-            $search_cate =  $value['category_id'];   
-            $search_date =  date('Y-m-d', strtotime($value['created_date']));
-            $start_date = date('Y-m-d', strtotime($_POST['start_date']));
-            $end_date = date('Y-m-d', strtotime($_POST['end_date']));
-
+        if(( !empty($_POST['cat_filter'])) && !empty($_POST['start_date']) && !empty($_POST['end_date'])){
             if($search_date >= $start_date && $search_date <= $end_date && $search_cate == $_POST['cat_filter']){
                 return $value;
             }
         }    
     }));
+
     
 }
 
@@ -75,8 +71,9 @@ if(!isset($_SESSION['search_filter'])){
     $_SESSION['search_filter'] = $item;
 }
 
-if(!isset($_SESSION['reportExcel'])){
-    if($_SESSION['search_filter']) {
+if(isset($_SESSION['reportExcel'])){
+    if(isset($_POST['filter']))
+    {
         $_SESSION['reportExcel'] = $_SESSION['search_filter'];
     }
     else{
@@ -86,6 +83,7 @@ if(!isset($_SESSION['reportExcel'])){
 
 if(isset($_POST['reset'])){
 unset($_SESSION['search_filter']);
+header('location:'.$_SERVER['PHP_SELF']);
 }
 
 ?>
@@ -94,7 +92,7 @@ unset($_SESSION['search_filter']);
 
 
 <div class="container">
-    <h2>Report</h2>
+    <h1 class="h3 mb-0 text-gray-800 my-4 mx-2" style="font-size: 40px;">အစီရင်ခံချက်များ</h1>
     <form action="" method="post">
         <div class="row my-3">
             <!-- <div class="col-md-2">
@@ -111,10 +109,10 @@ unset($_SESSION['search_filter']);
 
                 </select>
             </div> -->
-            <div class="col-md-3">
+            <div class="col-md-4">
                 <select name="cat_filter" class="form-select">
                     <?php
-                    echo "<option hidden>Categories Type</option>";
+                    echo "<option hidden selected value='0'>Categories Type</option>";
                     for ($i = 0; $i < count($parents); $i++) {
                         if($_POST['cat_filter']==$parents[$i]['id'])
                         echo "<option value='" . $parents[$i]['id'] . "' selected>" . $parents[$i]['name'] . "</option>";
@@ -128,23 +126,24 @@ unset($_SESSION['search_filter']);
                 </select>
             </div>
 
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <div class="row">
                     <div class="col-md-6">
-                        <input type="date" name="start_date" id="start_date" class="form-control" placeholder="Start Date" >
+                        <input type="date" name="start_date" id="start_date" class="form-control" placeholder="Start Date" value="<?php if(isset($_POST['filter'])){echo $_POST['start_date'];} ?>">
 
                     </div>
                     <div class="col-md-6">
-                        <input type="date" name="end_date" id="end_date" class="form-control" placeholder="End Date">
+                        <input type="date" name="end_date" id="end_date" class="form-control" placeholder="End Date" value="<?php if(isset($_POST['filter'])){echo $_POST['end_date'];} ?>">
 
                     </div>
                 </div>
             </div>
 
-            <div class="col-md-3">
+            <div class="col-md-4">
 
                 <button id="filter" class="btn btn-sm btn-info" name="filter">စီစစ်မည်</button>
                 <button id="filter" class="btn btn-sm btn-danger" name="reset">ပြန်စမည်</button>
+                <a href="month.php" class="btn btn-sm btn btn-primary">လ/နှစ်အလိုက်</a>
                 <a href="reportExcel.php" class="btn btn-success btn-sm">Excelထုတ်မည်</a>
             </div>
     </form>
@@ -158,12 +157,12 @@ unset($_SESSION['search_filter']);
         <table class="table table-striped table-bordered" id="order_table">
             <thead>
                 <tr>
-                    <th>No</th>
-                    <th>Order Date</th>
-                    <th>Item Name</th>
-                    <th>Qty</th>
-                    <th>Price</th>
-                    <th>Total Price</th>
+                    <th>နံပါတ်</th>
+                    <th>အော်ဒါရက်စွဲ</th>
+                    <th>အမျိုးအစား</th>
+                    <th>အရေအတွက်</th>
+                    <th>စျေးနှုန်း</th>
+                    <th>စုစုပေါင်းစျေးနှုန်း</th>
 
 
                 </tr>
