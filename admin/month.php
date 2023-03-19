@@ -135,7 +135,7 @@ if(isset($_POST['reset'])){
                 <button id="filter" class="btn btn-sm btn-info" name="filter">စီစစ်မည်</button>
                 <button id="filter" class="btn btn-sm btn-danger" name="reset">ပြန်စမည်</button>
                 <a href="report.php" class="btn btn-sm btn-primary">အမျိုးအစား/ရက်အလိုက်</a>
-                <a href="month_excel.php" class="btn btn-success btn-sm mt-2">Excelထုတ်မည်</a>
+                <a href="month_excel.php" class="btn btn-success btn-sm">Excelထုတ်မည်</a>
             </div>
     </form>
 </div>
