@@ -209,25 +209,28 @@ $products=$products_controller->getProducts();
 
                     <div class="featured-img mt-5 mb-5">
                         <img data-aos="fade-up" data-aos-duration="1000" data-aos-offset="0"
-                            src="https://images.unsplash.com/photo-1532509334149-d2130d74253c?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80">
+                            src="img/about_us.png" class="w-80" height="500px">
                     </div>
                     <article class="article" data-aos="fade-up" data-aos-duration="1000" data-aos-offset="0"
                         data-aos-delay="200">
-                        <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It
-                            has roots in a piece of classical Latin literature from 45 BC, making it
-                            over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney
-                            College in Virginia, looked up one of the more obscure Latin words, consectetur,
-                            from a Lorem Ipsum passage, and going through the cites of the word in
-                            classical literature, discovered the undoubtable source.</p>
-                        <p>Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum
-                            et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC.
-                            This book is a treatise on the theory of ethics, very popular during the
-                            Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..",
-                            comes from a line in section 1.10.32.</p>
-                        <p>The standard chunk of Lorem Ipsum used since the 1500s is reproduced below
-                            for those interested. Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum
-                            et Malorum" by Cicero are also reproduced in their exact original form,
-                            accompanied by English versions from the 1914 translation by H. Rackham.</p>
+                        <p>Welcome to Darli Snacks and Drinks shop! We are a team of passionate foodies who 
+                            believe that everyone deserves access to fresh and delicious food, no matter
+                             where they are located. Our online shop is designed to make it easy for you
+                              to find and order your favorite meals, snacks, and drinks, all from the comfort
+                               of your own home. Whether you are looking for a quick lunch, a romantic dinner, 
+                               or a special treat for yourself or someone you love, we have everything you need
+                                to satisfy your cravings.</p>
+                        <p>At our online food shop, we are committed to using only the highest quality ingredients
+                            in all of our products. We work with local farmers and producers to source the freshest fruits,
+                             vegetables, meats, and dairy products, ensuring that everything we offer is both delicious and
+                              nutritious. We also believe in offering a wide range of options to meet the needs of every customer, 
+                              including vegan, gluten-free, and other dietary restrictions. With our easy-to-use website, 
+                              you can browse our menu, place your order, and have it delivered right to your doorstep in no time.</p>
+                        <p>We are proud to be a part of the growing movement towards more sustainable and ethical food practices. We are
+                             constantly seeking out new ways to reduce our environmental impact, such as using biodegradable packaging and
+                              sourcing ingredients from local suppliers. We also believe in supporting our community, and regularly donate
+                               a portion of our profits to local charities and organizations. Thank you for choosing our online food shop,
+                                and we look forward to serving you soon!</p>
                     </article>
                 </div>
             </div>

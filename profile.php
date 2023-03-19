@@ -47,9 +47,8 @@ if(isset($_POST['updateBtn']))
 
     if($result)
     {
-        // echo '<script> location.replace("profile.php"); </script>';
-        $_SESSION['updated_info_message'] = "Updated your info successfully!";
-
+        echo '<script> location.replace("profile.php"); </script>';
+        // $_SESSION['updated_info_message'] = "Updated your info successfully!";
     }
 
     // if($result)
@@ -107,8 +106,7 @@ if(isset($_POST['updateBtn']))
                                             <div>Name : <span class="px-1 py-1 bg-success"><?php echo $user['name'];        ?></span></div>
                                             <div>Email : <?php echo $user['email'];        ?></div>
                                             <div>Phone Number : <?php echo $user['phone_number'];        ?></div>
-                                            <div>Address : <?php echo $user['address'];        ?></div>
-                                            <div>Password : <?php echo $user['password'];        ?></div>
+                                            <div>Address : <?php echo $user['address']; ?></div>
                                             <a href="profile.php?user_id_to_update=<?php echo $_SESSION['user_array']['id'];        ?>" class="btn btn-primary btn-sm" name="editBtn">Edit Your Profile</a>
                                         </div>
                                     </div>
@@ -143,7 +141,7 @@ if(isset($_POST['updateBtn']))
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="" class="form-label">Password</label>
-                                                    <input type="text" name="password" id="" class="form-control" value="<?php if(isset($user)) echo $user['password']  ?>">
+                                                    <input type="text" name="password" id="" class="form-control">
                                                 </div>
 
                                             </div>
